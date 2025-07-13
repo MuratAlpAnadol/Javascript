@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        const serverStatus = false;
+        console.log("start");
+
+        const login = (username, password) => {
+            return new Promise((resolve,reject) => {
+                    setTimeout(() => {
+                        if(serverStatus){
+                        resolve({username: username, email: "anadolalp@gmail.com"})
+                    }else{
+                        reject("server is offline")
+                    }
+                }, 1000);
+            })      
+        }
+
+
+        const getPostByUsername = (username) => {
+            return new Promise((resolve,reject) => {
+                setTimeout(() => {
+                    resolve(["post 1", "post 2", "post 3"]);
+                }, 2000)
+            })
+        }
+
+
+        const getPostDetails = (post) => {
+           return new Promise((resolve,reject) => {
+                setTimeout(() => {
+                    resolve(["post details"]);
+                }, 1000)
+            })
+        }
+
+
+
+        // login("alpanadol","12345", user => {
+        //     console.log(user.username);
+
+        //     getPostByUsername(user.username, (posts) => {
+        //         console.log(posts);
+
+        //         getPostDetails(posts[0], (details) => {
+        //             console.log(details);
+        //         })
+        //     });
+        // });
+
+        login("alpanadol", "12345")
+            .then(user => {
+                console.log(user);
+                return getPostByUsername(user.username);
+            })
+            .then(posts => {
+                console.log(posts);
+                return getPostDetails(posts[0]);
+            })
+            .then(details => {
+                console.log(details);
+            })
+            .catch(err =>{
+                console.log(err);
+            })
+
+         console.log("end");
+
+
+
+    </script>
+</body>
+</html>
